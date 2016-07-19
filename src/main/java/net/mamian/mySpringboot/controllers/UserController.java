@@ -1,7 +1,7 @@
 package net.mamian.mySpringboot.controllers;
 
 import net.mamian.mySpringboot.entity.User;
-import net.mamian.mySpringboot.dao.UserDAO;
+import net.mamian.mySpringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
+    
     @Autowired
-    private UserDAO userDAO;
+    private UserService userService;
     
     //================================================访问jsp页面================================================
     /**
@@ -34,7 +34,7 @@ public class UserController {
     public ModelAndView user(String email) {
         ModelAndView model = new ModelAndView();
         
-        User user = userDAO.findByEmail(email);
+        User user = userService.findByEmail(email);
         if(null == user){
             System.out.println("user is not exist, try to init one");
             user = new User();
@@ -59,7 +59,7 @@ public class UserController {
     public String create(String email, String name) {
         try {
             User user = new User(email, name);
-            userDAO.save(user);
+            userService.save(user);
         } catch (Exception ex) {
             return "Error creating the user: " + ex.toString();
         }
@@ -76,8 +76,7 @@ public class UserController {
     @ResponseBody
     public String delete(long id) {
         try {
-            User user = new User(id);
-            userDAO.delete(user);
+            userService.delete(id);
         } catch (Exception ex) {
             return "Error deleting the user: " + ex.toString();
         }
@@ -95,7 +94,7 @@ public class UserController {
     public String getByEmail(String email) {
         String userId;
         try {
-            User user = userDAO.findByEmail(email);
+            User user = userService.findByEmail(email);
             if(null == user){
                 return "user which email = "+email+" is not exist!";
             }
@@ -118,13 +117,13 @@ public class UserController {
     @ResponseBody
     public String updateName(long id, String email, String name) {
         try {
-            User user = userDAO.findOne(id);
+            User user = userService.findOne(id);
             if(null == user){
                 return "user which id = "+id+" is not exist!";
             }
             user.setEmail(email);
             user.setName(name);
-            userDAO.save(user);
+            userService.save(user);
         } catch (Exception ex) {
             return "Error updating the user: " + ex.toString();
         }

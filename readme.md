@@ -5,6 +5,7 @@
 + Configurations
 
 	Open the `application.properties` file and set your own configurations.
+	The default config: mysql.schema = nina
 
 + Prerequisites
 
