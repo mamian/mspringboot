@@ -5,6 +5,7 @@ import net.mamian.mySpringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,7 +31,7 @@ public class UserController {
      * @param email
      * @return 
      */
-    @RequestMapping("/profile")
+    @RequestMapping(value="/profile", method = RequestMethod.GET)
     public ModelAndView user(String email) {
         ModelAndView model = new ModelAndView();
         
@@ -54,7 +55,7 @@ public class UserController {
      * @param name
      * @return 
      */
-    @RequestMapping("/create")
+    @RequestMapping(value="/create", method = RequestMethod.POST)
     @ResponseBody
     public String create(String email, String name) {
         try {
@@ -72,7 +73,7 @@ public class UserController {
      * @param id
      * @return 
      */
-    @RequestMapping("/delete")
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
     @ResponseBody
     public String delete(long id) {
         try {
@@ -89,7 +90,7 @@ public class UserController {
      * @param email
      * @return 
      */
-    @RequestMapping("/email")
+    @RequestMapping(value="/email", method = RequestMethod.GET)
     @ResponseBody
     public String getByEmail(String email) {
         String userId;
@@ -113,7 +114,7 @@ public class UserController {
      * @param name
      * @return 
      */
-    @RequestMapping(value = "/update")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public String updateName(long id, String email, String name) {
         try {
