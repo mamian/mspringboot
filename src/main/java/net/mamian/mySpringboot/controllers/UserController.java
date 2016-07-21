@@ -2,6 +2,8 @@ package net.mamian.mySpringboot.controllers;
 
 import net.mamian.mySpringboot.entity.User;
 import net.mamian.mySpringboot.service.UserService;
+import net.mamian.mySpringboot.utils.ResponseCode;
+import net.mamian.mySpringboot.utils.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,14 +59,16 @@ public class UserController {
      */
     @RequestMapping(value="/create", method = RequestMethod.POST)
     @ResponseBody
-    public String create(String email, String name) {
+    public RestResponse create(String email, String name) {
+        RestResponse result = new RestResponse();
         try {
-            User user = new User(email, name);
-            userService.save(user);
+            User user = userService.save(new User(email, name));
+            System.out.println("User succesfully created!");
+            return result.success(user);
         } catch (Exception ex) {
-            return "Error creating the user: " + ex.toString();
+            System.out.println("Error creating the user: {}" + ex.toString());
+            return result.error(ResponseCode.ERROR_UNKNOW);
         }
-        return "User succesfully created!";
     }
 
     /**
@@ -75,13 +79,16 @@ public class UserController {
      */
     @RequestMapping(value="/delete", method = RequestMethod.POST)
     @ResponseBody
-    public String delete(long id) {
+    public RestResponse delete(long id) {
+        RestResponse result = new RestResponse();
         try {
             userService.delete(id);
+            System.out.println("User succesfully deleted!");
+            return result.success();
         } catch (Exception ex) {
-            return "Error deleting the user: " + ex.toString();
+            System.out.println("Error deleting the user: {}" + ex.toString());
+            return result.error(ResponseCode.ERROR_UNKNOW);
         }
-        return "User succesfully deleted!";
     }
 
     /**
@@ -92,18 +99,19 @@ public class UserController {
      */
     @RequestMapping(value="/email", method = RequestMethod.GET)
     @ResponseBody
-    public String getByEmail(String email) {
-        String userId;
+    public RestResponse getByEmail(String email) {
+        RestResponse result = new RestResponse();
         try {
             User user = userService.findByEmail(email);
             if(null == user){
-                return "user which email = "+email+" is not exist!";
+                System.out.println("user which email = "+email+" is not exist!");
+                return result.error(ResponseCode.ERROR_USER_NO_EXIST);
             }
-            userId = String.valueOf(user.getId());
+            return result.success(user);
         } catch (Exception ex) {
-            return "User not found: " + ex.toString();
+            System.out.println("Error deleting the user: {}" + ex.toString());
+            return result.error(ResponseCode.ERROR_UNKNOW);
         }
-        return "The user id is: " + userId;
     }
 
     /**
@@ -116,19 +124,23 @@ public class UserController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public String updateName(long id, String email, String name) {
+    public RestResponse updateName(long id, String email, String name) {
+        RestResponse result = new RestResponse();
         try {
             User user = userService.findOne(id);
             if(null == user){
-                return "user which id = "+id+" is not exist!";
+                System.out.println("user which id = "+id+" is not exist!");
+                return result.error(ResponseCode.ERROR_USER_NO_EXIST);
             }
             user.setEmail(email);
             user.setName(name);
-            userService.save(user);
+            user = userService.save(user);
+            System.out.println("User succesfully updated!");
+            return result.success(user);
         } catch (Exception ex) {
-            return "Error updating the user: " + ex.toString();
+            System.out.println("Error updating the user: {}" + ex.toString());
+            return result.error(ResponseCode.ERROR_UNKNOW);
         }
-        return "User succesfully updated!";
     }
     //================================================访问数据================================================
 }
