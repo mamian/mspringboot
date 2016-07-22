@@ -25,9 +25,24 @@
 
 ### Usage
 
-- 首页(jsp)：`http://localhost:8080/`
-- 用户详情页(jsp)：`http://localhost:8080/user/profile?email=[email]`
-- 创建用户：`http://localhost:8080/user/create?email=[email]&name=[name]`
-- 根据id删除用户：`http://localhost:8080/user/delete?id=[id]`
-- 根据email查询用户：`http://localhost:8080/user/email?email=[email]`
-- 修改用户：`http://localhost:8080/user/update?id=[id]&email=[email]&name=[name]`
+- 首页(jsp)：
+	- get
+	- `http://localhost:8080/`
+- 用户详情页(jsp)：
+	- get
+	- `http://localhost:8080/user/profile?email=[email]`
+- 创建用户：
+	- post
+	- `http://localhost:8080/user/create`
+	- param: email=[email]&name=[name]
+- 根据id删除用户：
+	- post
+	- `http://localhost:8080/user/delete`
+	- param: id=[id]
+- 根据email查询用户：
+	- get
+	- `http://localhost:8080/user/email?email=[email]`
+- 修改用户：
+	- post
+	- `http://localhost:8080/user/update`
+	- param: id=[id]&email=[email]&name=[name]
