@@ -14,7 +14,7 @@
 
 + From terminal
 
-	Go on the project's root folder, then type:
+	`Go on the project's root folder`, then type:
 
     	$ mvn spring-boot:run
 

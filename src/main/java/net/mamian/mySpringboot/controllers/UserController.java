@@ -1,5 +1,6 @@
 package net.mamian.mySpringboot.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import net.mamian.mySpringboot.entity.User;
 import net.mamian.mySpringboot.service.UserService;
 import net.mamian.mySpringboot.utils.ResponseCode;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @date 2016-07-05 11:45
  * @copyright ©2016 马面 All Rights Reserved
  */
+@Slf4j
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -38,12 +40,9 @@ public class UserController {
         ModelAndView model = new ModelAndView();
         
         User user = userService.findByEmail(email);
-        if(null == user){
-            System.out.println("user is not exist, try to init one");
-            user = new User();
-        }
-        model.addObject("user", user);
+        model.addObject("user", null == user ? new User() : user);
         model.setViewName("user/profile");
+        
         return model;
     }
     //================================================访问jsp页面================================================
@@ -63,10 +62,10 @@ public class UserController {
         RestResponse result = new RestResponse();
         try {
             User user = userService.save(new User(email, name));
-            System.out.println("User succesfully created!");
+            log.debug("User succesfully created!");
             return result.success(user);
         } catch (Exception ex) {
-            System.out.println("Error creating the user: {}" + ex.toString());
+            log.debug("Error creating the user: {}", ex.toString());
             return result.error(ResponseCode.ERROR_UNKNOW);
         }
     }
@@ -83,10 +82,10 @@ public class UserController {
         RestResponse result = new RestResponse();
         try {
             userService.delete(id);
-            System.out.println("User succesfully deleted!");
+            log.debug("User succesfully deleted!");
             return result.success();
         } catch (Exception ex) {
-            System.out.println("Error deleting the user: {}" + ex.toString());
+            log.debug("Error deleting the user: {}", ex.toString());
             return result.error(ResponseCode.ERROR_UNKNOW);
         }
     }
@@ -104,12 +103,12 @@ public class UserController {
         try {
             User user = userService.findByEmail(email);
             if(null == user){
-                System.out.println("user which email = "+email+" is not exist!");
+                log.debug("user which email = "+email+" is not exist!");
                 return result.error(ResponseCode.ERROR_USER_NO_EXIST);
             }
             return result.success(user);
         } catch (Exception ex) {
-            System.out.println("Error deleting the user: {}" + ex.toString());
+            log.debug("Error deleting the user: {}", ex.toString());
             return result.error(ResponseCode.ERROR_UNKNOW);
         }
     }
@@ -129,16 +128,16 @@ public class UserController {
         try {
             User user = userService.findOne(id);
             if(null == user){
-                System.out.println("user which id = "+id+" is not exist!");
+                log.debug("user which id = "+id+" is not exist!");
                 return result.error(ResponseCode.ERROR_USER_NO_EXIST);
             }
             user.setEmail(email);
             user.setName(name);
             user = userService.save(user);
-            System.out.println("User succesfully updated!");
+            log.debug("User succesfully updated!");
             return result.success(user);
         } catch (Exception ex) {
-            System.out.println("Error updating the user: {}" + ex.toString());
+            log.debug("Error updating the user: {}", ex.toString());
             return result.error(ResponseCode.ERROR_UNKNOW);
         }
     }
