@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -98,10 +99,10 @@ public class UserController {
      */
     @RequestMapping(value="/email", method = RequestMethod.GET)
     @ResponseBody
-    public RestResponse getByEmail(String email) {
+    public RestResponse getByEmail(@RequestParam(value="email", defaultValue="1") String email) {
         RestResponse result = new RestResponse();
         try {
-            User user = userService.findByEmail(email);
+            User user = userService.getByEmail(email);
             if(null == user){
                 log.debug("user which email = "+email+" is not exist!");
                 return result.error(ResponseCode.ERROR_USER_NO_EXIST);

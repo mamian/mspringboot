@@ -8,6 +8,7 @@ package net.mamian.mySpringboot.service;
 
 import javax.transaction.Transactional;
 import net.mamian.mySpringboot.dao.UserDAO;
+import net.mamian.mySpringboot.dao.UserRepository;
 import net.mamian.mySpringboot.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,24 +24,31 @@ import org.springframework.stereotype.Component;
 @Component
 @Transactional
 public class UserService {
-
+    
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private UserRepository userRepository;
     
     public User findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+    
+    public User getByEmail(String email){
         return userDAO.findByEmail(email);
     }
     
     public User save(User user){
-        return userDAO.save(user);
+        return userRepository.save(user);
     }
     
     public void delete(long id){
-        userDAO.delete(id);
+        userRepository.delete(id);
     }
     
     public User findOne(long id){
-        return userDAO.findOne(id);
+        return userRepository.findOne(id);
     }
     
 }

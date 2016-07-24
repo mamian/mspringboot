@@ -23,7 +23,6 @@ public class MainController {
      */
     @RequestMapping("/")
     public ModelAndView index() {
-        System.out.println("访问首页");
         return new ModelAndView("index");
     }
     
