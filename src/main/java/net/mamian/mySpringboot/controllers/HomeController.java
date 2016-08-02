@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package net.mamian.mySpringboot.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -14,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @copyright ©2016 马面 All Rights Reserved
  */
 @Controller
-public class MainController {
+public class HomeController {
     
     /**
      * 网站首页
@@ -45,5 +50,5 @@ public class MainController {
     public ModelAndView forward2() {
         return new ModelAndView("user/profile");
     }
-    
+
 }

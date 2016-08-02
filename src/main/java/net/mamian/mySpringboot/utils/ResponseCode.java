@@ -25,6 +25,7 @@ public enum ResponseCode {
     ERROR_USER_NO_PERMISSION("无操作权限", 4001),
     ERROR_USER_INVALID_PASSWORD("无效的用户密码", 4002),
     ERROR_USER_NO_EXIST("用户不存在", 4003),
+    ERROR_LOGINNAME_EXIST("用户名已存在", 4004),
     //====================================================================================================================
     
     ;
