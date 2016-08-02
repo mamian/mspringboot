@@ -12,6 +12,7 @@ import net.mamian.mySpringboot.common.ResponseCode;
 import net.mamian.mySpringboot.common.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,14 +39,14 @@ public class UserController {
     /**
      * 获取用户详情页
      * 
-     * @param email
+     * @param loginName
      * @return 
      */
     @RequestMapping(value="/profile", method = RequestMethod.GET)
-    public ModelAndView user(String email) {
+    public ModelAndView user(String loginName) {
         ModelAndView model = new ModelAndView();
         
-        User user = userService.findByEmail(email);
+        User user = userService.findByLoginName(loginName);
         model.addObject("user", null == user ? new User() : user);
         model.setViewName("user/profile");
         
@@ -84,7 +85,7 @@ public class UserController {
      */
     @RequestMapping(value="/delete", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse delete(long id) {
+    public RestResponse delete(String id) {
         RestResponse result = new RestResponse();
         try {
             userService.delete(id);
@@ -129,7 +130,7 @@ public class UserController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse updateName(long id, String email, String name) {
+    public RestResponse updateName(String id, String email, String name) {
         RestResponse result = new RestResponse();
         try {
             User user = userService.findOne(id);
@@ -147,5 +148,51 @@ public class UserController {
     }
     //================================================访问数据================================================
     
+    /**
+     * 用户注册
+     * 
+     * @param loginName 用户名
+     * @param password 密码
+     * @return
+     */
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    public RestResponse register(@RequestHeader("token") String token,
+                                 @RequestParam(value="loginName") String loginName,
+                                 @RequestParam(value="password") String password) {
+        RestResponse result = new RestResponse();
+        
+        User user = userService.findByLoginName(loginName);
+
+        if (user != null) {
+            log.error("loginName {} already existed.", loginName);
+            return result.error(ResponseCode.ERROR_LOGINNAME_EXIST);
+        }
+        
+        user = userService.create(loginName, password);
+        
+        return result.success(user);
+    }
+    
+    /**
+     * 用户登录
+     * 
+     * @param loginName 用户名
+     * @param password 密码
+     * @return
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ModelAndView login(@RequestParam(value="loginName") String loginName,
+                              @RequestParam(value="password") String password) {
+        ModelAndView model = new ModelAndView();
+
+        if (!userService.checkPassword(loginName, password)) {
+            model.setViewName("login");
+            return model;
+        }
+        model.addObject("user", userService.findByLoginName(loginName));
+        model.setViewName("user/profile");
+        return model;
+    }
 
 }

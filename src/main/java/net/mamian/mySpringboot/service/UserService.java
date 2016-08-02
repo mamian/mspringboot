@@ -10,6 +10,8 @@ import javax.transaction.Transactional;
 import net.mamian.mySpringboot.dao.UserDAO;
 import net.mamian.mySpringboot.dao.UserRepository;
 import net.mamian.mySpringboot.entity.User;
+import net.mamian.mySpringboot.enums.CountryCode;
+import net.mamian.mySpringboot.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,10 +33,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     
-    public User findByEmail(String email){
-        return userRepository.findByEmail(email);
-    }
-    
     public User getByEmail(String email){
         return userDAO.findByEmail(email);
     }
@@ -43,12 +41,60 @@ public class UserService {
         return userRepository.save(user);
     }
     
-    public void delete(long id){
+    public void delete(String id){
         userRepository.delete(id);
     }
     
-    public User findOne(long id){
+    public User findOne(String id){
         return userRepository.findOne(id);
+    }
+    
+    /**
+     * 创建用户
+     * 
+     * @param loginName
+     * @param password
+     * @return 
+     */
+    public User create(String loginName, String password){
+        String salt = SecurityUtils.getSalt(loginName);
+        String passphrase = SecurityUtils.getPassphrase(salt, password);
+        
+        User user = new User(CountryCode.CN,
+                             null,
+                             null,
+                             loginName,
+                             passphrase,
+                             salt,
+                             null,
+                             true);
+        return userRepository.save(user);
+    }
+    
+    /**
+     * 查找用户
+     * 
+     * @param loginName
+     * @return 
+     */
+    public User findByLoginName(String loginName){
+        return userRepository.findByLoginName(loginName);
+    }
+    
+    /**
+     * 验证密码
+     * 
+     * @param loginName
+     * @param password
+     * @return
+     */
+    public boolean checkPassword(String loginName, String password) {
+        User user = userRepository.findByLoginName(loginName);
+        if(null == user){
+            return false;
+        }
+        String passphrase = SecurityUtils.getPassphrase(user.getSalt(), password);
+        return user.getPassphrase().equals(passphrase);
     }
     
 }
