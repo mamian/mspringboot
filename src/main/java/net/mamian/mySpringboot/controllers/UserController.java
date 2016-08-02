@@ -1,10 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package net.mamian.mySpringboot.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import net.mamian.mySpringboot.entity.User;
 import net.mamian.mySpringboot.service.UserService;
-import net.mamian.mySpringboot.utils.ResponseCode;
-import net.mamian.mySpringboot.utils.RestResponse;
+import net.mamian.mySpringboot.common.ResponseCode;
+import net.mamian.mySpringboot.common.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +67,7 @@ public class UserController {
     public RestResponse create(String email, String name) {
         RestResponse result = new RestResponse();
         try {
-            User user = userService.save(new User(email, name));
+            User user = userService.save(new User());
             log.debug("User succesfully created!");
             return result.success(user);
         } catch (Exception ex) {
@@ -132,8 +137,6 @@ public class UserController {
                 log.debug("user which id = "+id+" is not exist!");
                 return result.error(ResponseCode.ERROR_USER_NO_EXIST);
             }
-            user.setEmail(email);
-            user.setName(name);
             user = userService.save(user);
             log.debug("User succesfully updated!");
             return result.success(user);
@@ -143,4 +146,6 @@ public class UserController {
         }
     }
     //================================================访问数据================================================
+    
+
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package net.mamian.mySpringboot.utils;
+package net.mamian.mySpringboot.common;
 
 /**
  * 业务响应码

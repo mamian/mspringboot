@@ -25,13 +25,13 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 public class WebJspApplication extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(WebJspApplication.class);
-	}
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(WebJspApplication.class);
+    }
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(WebJspApplication.class, args);
-	}
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(WebJspApplication.class, args);
+    }
 
 }
