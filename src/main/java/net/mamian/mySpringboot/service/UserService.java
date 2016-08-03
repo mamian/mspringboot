@@ -6,13 +6,16 @@
 
 package net.mamian.mySpringboot.service;
 
+import java.util.List;
 import javax.transaction.Transactional;
+import net.mamian.mySpringboot.common.PagedResult;
 import net.mamian.mySpringboot.dao.UserDAO;
 import net.mamian.mySpringboot.dao.UserRepository;
 import net.mamian.mySpringboot.entity.User;
 import net.mamian.mySpringboot.enums.CountryCode;
 import net.mamian.mySpringboot.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 /**
@@ -95,6 +98,12 @@ public class UserService {
         }
         String passphrase = SecurityUtils.getPassphrase(user.getSalt(), password);
         return user.getPassphrase().equals(passphrase);
+    }
+    
+    public PagedResult<User> list(boolean enable, PageRequest pageRequest){
+        long count = userRepository.count(enable);
+        List<User> result = userRepository.list(enable, pageRequest);
+        return new PagedResult(result, count);
     }
     
 }

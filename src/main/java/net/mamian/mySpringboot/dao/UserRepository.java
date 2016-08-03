@@ -8,6 +8,7 @@ package net.mamian.mySpringboot.dao;
 import java.util.List;
 import javax.transaction.Transactional;
 import net.mamian.mySpringboot.entity.User;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -35,9 +36,20 @@ public interface UserRepository extends CrudRepository<User, String> {
      * 查找用户
      * 
      * @param enabled
+     * @param pageable
      * @return 
      */
     @Query("select u from User u where u.enabled = :enabled")
-    public List<User> list(@Param("enabled") boolean enabled);
+    public List<User> list(@Param("enabled") boolean enabled,
+                           Pageable pageable);
+    
+    /**
+     * 查找用户
+     * 
+     * @param enabled
+     * @return 
+     */
+    @Query("select count(u) from User u where u.enabled = :enabled")
+    public long count(@Param("enabled") boolean enabled);
 
 }
