@@ -59,13 +59,13 @@ public class UserDAO {
     /**
      * 查找用户
      *
-     * @param email
+     * @param mobile
      * @return
      */
-    public User findByEmail(String email) {
+    public User findByMobile(String mobile) {
         log.debug("\n mamian mamianmamianmamianmamianmamianmamianmamian \n");
-        return entityManager.createQuery("from User where email = :email", User.class)
-                .setParameter("email", email)
+        return entityManager.createQuery("from User where mobile = :mobile", User.class)
+                .setParameter("mobile", mobile)
                 .getSingleResult();
     }
 

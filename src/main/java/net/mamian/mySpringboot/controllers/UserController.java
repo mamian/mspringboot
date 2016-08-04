@@ -59,13 +59,13 @@ public class UserController {
     /**
      * 创建用户
      * 
-     * @param email
+     * @param mobile
      * @param name
      * @return 
      */
     @RequestMapping(value="/create", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse create(String email, String name) {
+    public RestResponse create(String mobile, String name) {
         RestResponse result = new RestResponse();
         try {
             User user = userService.save(new User());
@@ -98,19 +98,19 @@ public class UserController {
     }
 
     /**
-     * 根据email查询用户
+     * 根据mobile查询用户
      * 
-     * @param email
+     * @param mobile
      * @return 
      */
-    @RequestMapping(value="/email", method = RequestMethod.GET)
+    @RequestMapping(value="/mobile", method = RequestMethod.GET)
     @ResponseBody
-    public RestResponse getByEmail(@RequestParam(value="email", defaultValue="1") String email) {
+    public RestResponse getByMobile(@RequestParam(value="mobile", defaultValue="1") String mobile) {
         RestResponse result = new RestResponse();
         try {
-            User user = userService.getByEmail(email);
+            User user = userService.findByMobile(mobile);
             if(null == user){
-                log.debug("user which email = "+email+" is not exist!");
+                log.debug("user which mobile = "+mobile+" is not exist!");
                 return result.error(ResponseCode.ERROR_USER_NO_EXIST);
             }
             return result.success(user);
@@ -124,13 +124,13 @@ public class UserController {
      * 修改用户
      * 
      * @param id
-     * @param email
+     * @param mobile
      * @param name
      * @return 
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse updateName(String id, String email, String name) {
+    public RestResponse updateName(String id, String mobile, String name) {
         RestResponse result = new RestResponse();
         try {
             User user = userService.findOne(id);

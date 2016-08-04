@@ -32,8 +32,8 @@
                     <td>${user.name}</td>
                 </tr>
                 <tr>
-                    <td>用户email</td>
-                    <td>${user.email}</td>
+                    <td>用户mobile</td>
+                    <td>${user.mobile}</td>
                 </tr>
             </table>
         </div>
