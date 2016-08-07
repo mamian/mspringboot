@@ -10,6 +10,7 @@ import net.mamian.mySpringboot.entity.User;
 import net.mamian.mySpringboot.service.UserService;
 import net.mamian.mySpringboot.common.ResponseCode;
 import net.mamian.mySpringboot.common.RestResponse;
+import net.mamian.mySpringboot.common.Visitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -59,14 +60,22 @@ public class UserController {
     /**
      * 创建用户
      * 
+     * @param visitor 访问来源
+     * @param version 访问的版本
      * @param mobile
      * @param name
      * @return 
      */
     @RequestMapping(value="/create", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse create(String mobile, String name) {
+    public RestResponse create(@RequestHeader("visitor") Visitor visitor,
+                               @RequestHeader("version") int version,
+                               String mobile, String name) {
         RestResponse result = new RestResponse();
+        if(null == visitor || 0 == version){
+            return result.error(ResponseCode.ERROR_USER_NO_PERMISSION);
+        }
+        
         try {
             User user = userService.save(new User());
             log.debug("User succesfully created!");
@@ -80,13 +89,21 @@ public class UserController {
     /**
      * 根据id删除用户
      * 
+     * @param visitor 访问来源
+     * @param version 访问的版本
      * @param id
      * @return 
      */
     @RequestMapping(value="/delete", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse delete(String id) {
+    public RestResponse delete(@RequestHeader("visitor") Visitor visitor,
+                               @RequestHeader("version") int version,
+                               String id) {
         RestResponse result = new RestResponse();
+        if(null == visitor || 0 == version){
+            return result.error(ResponseCode.ERROR_USER_NO_PERMISSION);
+        }
+        
         try {
             userService.delete(id);
             log.debug("User succesfully deleted!");
@@ -100,13 +117,21 @@ public class UserController {
     /**
      * 根据mobile查询用户
      * 
+     * @param visitor 访问来源
+     * @param version 访问的版本
      * @param mobile
      * @return 
      */
     @RequestMapping(value="/mobile", method = RequestMethod.GET)
     @ResponseBody
-    public RestResponse getByMobile(@RequestParam(value="mobile", defaultValue="1") String mobile) {
+    public RestResponse getByMobile(@RequestHeader("visitor") Visitor visitor,
+                                    @RequestHeader("version") int version,
+                                    @RequestParam(value="mobile", defaultValue="1") String mobile) {
         RestResponse result = new RestResponse();
+        if(null == visitor || 0 == version){
+            return result.error(ResponseCode.ERROR_USER_NO_PERMISSION);
+        }
+        
         try {
             User user = userService.findByMobile(mobile);
             if(null == user){
@@ -123,6 +148,8 @@ public class UserController {
     /**
      * 修改用户
      * 
+     * @param visitor 访问来源
+     * @param version 访问的版本
      * @param id
      * @param mobile
      * @param name
@@ -130,8 +157,14 @@ public class UserController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse updateName(String id, String mobile, String name) {
+    public RestResponse updateName(@RequestHeader("visitor") Visitor visitor,
+                                   @RequestHeader("version") int version,
+                                   String id, String mobile, String name) {
         RestResponse result = new RestResponse();
+        if(null == visitor || 0 == version){
+            return result.error(ResponseCode.ERROR_USER_NO_PERMISSION);
+        }
+        
         try {
             User user = userService.findOne(id);
             if(null == user){
@@ -151,16 +184,22 @@ public class UserController {
     /**
      * 用户注册
      * 
+     * @param visitor 访问来源
+     * @param version 访问的版本
      * @param loginName 用户名
      * @param password 密码
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public RestResponse register(@RequestHeader("token") String token,
+    public RestResponse register(@RequestHeader("visitor") Visitor visitor,
+                                 @RequestHeader("version") int version,
                                  @RequestParam(value="loginName") String loginName,
                                  @RequestParam(value="password") String password) {
         RestResponse result = new RestResponse();
+        if(null == visitor || 0 == version){
+            return result.error(ResponseCode.ERROR_USER_NO_PERMISSION);
+        }
         
         User user = userService.findByLoginName(loginName);
 
@@ -177,14 +216,22 @@ public class UserController {
     /**
      * 用户登录
      * 
+     * @param visitor 访问来源
+     * @param version 访问的版本
      * @param loginName 用户名
      * @param password 密码
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam(value="loginName") String loginName,
+    public ModelAndView login(@RequestHeader("visitor") Visitor visitor,
+                              @RequestHeader("version") int version,
+                              @RequestParam(value="loginName") String loginName,
                               @RequestParam(value="password") String password) {
         ModelAndView model = new ModelAndView();
+        if(null == visitor || 0 == version){
+            model.setViewName("login");
+            return model;
+        }
 
         if (!userService.checkPassword(loginName, password)) {
             model.setViewName("login");
