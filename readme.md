@@ -46,3 +46,9 @@
 	- post
 	- `http://localhost:8080/user/update`
 	- param: id=[id]&email=[email]&name=[name]
+	
+	
+---------
+### 使用thymeleaf代替jsp
++ 使用mvn package打jar
++ java -jar target/XX.jar 即可运行
