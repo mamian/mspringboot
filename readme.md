@@ -1,4 +1,4 @@
-## <center>springboot+hibernate+mysql(jsp+restful)</center>
+## <center>springboot+hibernate+mysql(thymeleaf+restful)</center>
 
 ### Build and run
 
@@ -18,6 +18,12 @@
 
     	$ mvn spring-boot:run
 
+	`You can also run mspringboot like this`
+	
+		$ mvn package
+		$ java -jar target/mySpringboot-0.0.1-SNAPSHOT
+		
+		
 #### From Eclipse (Spring Tool Suite)
 
 + Import as *Existing Maven Project* and run it as *Spring Boot App*.
