@@ -36,23 +36,29 @@
 	- `http://localhost:8080/`
 - 用户详情页(jsp)：
 	- get
-	- `http://localhost:8080/user/profile?email=[email]`
+	- `http://localhost:8080/user/profile?loginName=[loginName]`
 - 创建用户：
 	- post
 	- `http://localhost:8080/user/create`
-	- param: email=[email]&name=[name]
+	- param: mobile=[mobile]&name=[name]
 - 根据id删除用户：
 	- post
-	- `http://localhost:8080/user/delete`
-	- param: id=[id]
-- 根据email查询用户：
+	- `http://localhost:8080/user/delete/[userId]`
+- 根据mobile查询用户：
 	- get
-	- `http://localhost:8080/user/email?email=[email]`
+	- `http://localhost:8080/user/mobile?mobile=[mobile]`
 - 修改用户：
 	- post
 	- `http://localhost:8080/user/update`
-	- param: id=[id]&email=[email]&name=[name]
-	
+	- param: id=[id]&mobile=[mobile]&name=[name]
+- 用户注册：
+	- post
+	- `http://localhost:8080/user/register`
+	- param: loginName=[loginName]&password=[password]
+- 用户登录：
+	- post
+	- `http://localhost:8080/user/login`
+	- param: loginName=[loginName]&password=[password]
 	
 ---------
 ### 使用thymeleaf代替jsp

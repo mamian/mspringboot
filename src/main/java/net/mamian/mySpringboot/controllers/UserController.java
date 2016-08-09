@@ -13,6 +13,7 @@ import net.mamian.mySpringboot.common.RestResponse;
 import net.mamian.mySpringboot.common.Visitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -91,21 +92,21 @@ public class UserController {
      * 
      * @param visitor 访问来源
      * @param version 访问的版本
-     * @param id
+     * @param userId
      * @return 
      */
-    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    @RequestMapping(value="/delete/{userId}", method = RequestMethod.POST)
     @ResponseBody
     public RestResponse delete(@RequestHeader("visitor") Visitor visitor,
                                @RequestHeader("version") int version,
-                               String id) {
+                               @PathVariable String userId) {
         RestResponse result = new RestResponse();
         if(null == visitor || 0 == version){
             return result.error(ResponseCode.ERROR_USER_NO_PERMISSION);
         }
         
         try {
-            userService.delete(id);
+            userService.delete(userId);
             log.debug("User succesfully deleted!");
             return result.success();
         } catch (Exception ex) {
