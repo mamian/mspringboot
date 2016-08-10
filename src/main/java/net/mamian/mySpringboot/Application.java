@@ -7,6 +7,7 @@ package net.mamian.mySpringboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportResource;
 
 /**
  * 程序入口
@@ -17,6 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @copyright ©2016 马面 All Rights Reserved
  */
 @SpringBootApplication
+@ImportResource("classpath:dubbo-provide.xml")
 public class Application {
 
     public static void main(String[] args) {
