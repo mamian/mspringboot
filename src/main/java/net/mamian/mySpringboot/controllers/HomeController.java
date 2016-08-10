@@ -5,10 +5,13 @@
  */
 package net.mamian.mySpringboot.controllers;
 
+import java.io.IOException;
+import net.mamian.mySpringboot.rpc.DemoService;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 用户api接口层
@@ -21,34 +24,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
     
-    /**
-     * 网站首页
-     * 
-     * @return 
-     */
-    @RequestMapping("/")
-    public ModelAndView index() {
-        return new ModelAndView("index");
+    @RequestMapping(value="/dubbo", method = RequestMethod.GET)
+    @ResponseBody
+    public String test() throws IOException{
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[]{"dubbo-comsumer.xml"});
+        context.start();
+
+        DemoService demoService = (DemoService) context.getBean("demoService");
+        return demoService.sayHello("马面");
     }
     
-    /**
-     * 方法1：跳转到别另一个jsp页面
-     * 
-     * @return 
-     */
-    @RequestMapping("/forward1")
-    public String forward1() {
-        return "user/profile";
-    }
-
-    /**
-     * 方法2：跳转到别另一个jsp页面
-     * 
-     * @return 
-     */
-    @RequestMapping(value = "forward2", method = RequestMethod.GET)
-    public ModelAndView forward2() {
-        return new ModelAndView("user/profile");
-    }
-
 }
