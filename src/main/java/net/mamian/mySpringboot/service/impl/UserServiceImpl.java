@@ -9,7 +9,6 @@ package net.mamian.mySpringboot.service.impl;
 import java.util.List;
 import javax.transaction.Transactional;
 import net.mamian.mySpringboot.common.PagedResult;
-import net.mamian.mySpringboot.dao.UserDAO;
 import net.mamian.mySpringboot.dao.UserRepository;
 import net.mamian.mySpringboot.entity.User;
 import net.mamian.mySpringboot.enums.CountryCode;
@@ -30,16 +29,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Transactional
 public class UserServiceImpl implements UserService{
-    
-    @Autowired
-    private UserDAO userDAO;
 
     @Autowired
     private UserRepository userRepository;
     
     @Override
     public User findByMobile(String mobile){
-        return userDAO.findByMobile(mobile);
+        return userRepository.findByMobile(mobile);
     }
     
     @Override

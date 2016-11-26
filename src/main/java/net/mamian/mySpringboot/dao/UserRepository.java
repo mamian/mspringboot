@@ -33,6 +33,15 @@ public interface UserRepository extends CrudRepository<User, String> {
     public User findByLoginName(String loginName);
     
     /**
+     * 获取用户
+     * 
+     * @param mobile
+     * @return 
+     */
+    @Query("select u from User u where u.mobile = :mobile")
+    public User findByMobile(String mobile);
+    
+    /**
      * 查找用户
      * 
      * @param enabled
