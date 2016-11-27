@@ -54,6 +54,13 @@ public interface UserService {
      */
     public boolean checkPassword(String loginName, String password);
     
+    /**
+     * 查找生效用户
+     * 
+     * @param enable
+     * @param pageRequest
+     * @return
+     */
     public PagedResult<User> list(boolean enable, PageRequest pageRequest);
     
 }
