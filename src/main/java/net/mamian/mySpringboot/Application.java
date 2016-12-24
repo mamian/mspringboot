@@ -7,6 +7,7 @@ package net.mamian.mySpringboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * 程序入口
@@ -16,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2016-07-05 11:31
  * @copyright ©2016 马面 All Rights Reserved
  */
+@EnableScheduling
 @SpringBootApplication
 public class Application {
 
