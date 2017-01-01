@@ -1,7 +1,7 @@
 ## <center>springboot+hibernate+mysql(thymeleaf+restful)</center>
 
 ### 功能
-+ entity、dao、service、controller例子
++ entity、dao、service、controller
 + thymeleaf模板页面
 + dubbo rpc 系统间通信
 
@@ -26,7 +26,7 @@
 	`You can also run mspringboot like this`
 	
 		$ mvn package
-		$ java -jar target/mySpringboot-0.0.1-SNAPSHOT
+		$ java -jar target/mspringboot-0.0.1-SNAPSHOT
 		
 		
 #### From Eclipse (Spring Tool Suite)
