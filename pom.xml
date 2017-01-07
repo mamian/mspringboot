@@ -90,12 +90,16 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-
+    
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- 使jar可直接双击运行 -->
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
             </plugin>
         </plugins>
         <defaultGoal>compile</defaultGoal>
