@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,8 @@ import net.mamian.mySpringboot.utils.SecurityUtils;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "T_USER")
+@Table(name = "T_USER",
+       indexes = {@Index(columnList="mobile")})
 public class User extends TimeScopeEntity {
     
     /**
