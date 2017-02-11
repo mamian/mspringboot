@@ -7,6 +7,7 @@ package net.mamian.mySpringboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @copyright ©2016 马面 All Rights Reserved
  */
 @EnableScheduling
+@EnableAsync
 @SpringBootApplication
 public class Application {
 
