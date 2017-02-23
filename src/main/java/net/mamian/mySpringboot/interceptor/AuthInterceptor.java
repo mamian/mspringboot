@@ -53,7 +53,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             boolean loginRequired = target.getClass().isAnnotationPresent(LoginRequired.class)
                     || null != handlerMethod.getMethodAnnotation(LoginRequired.class);
             if (loginRequired && !checkLogin(request)) {
-                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+//                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                response.sendRedirect(request.getContextPath()+"/login");
                 return false;
             }
 
@@ -64,7 +65,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             if (employeeLoginRequired) {
                 employee = ContextUtils.getEmployee(request);
                 if(employee == null){
-                    response.setStatus(HttpStatus.PROXY_AUTHENTICATION_REQUIRED.value());
+//                    response.setStatus(HttpStatus.PROXY_AUTHENTICATION_REQUIRED.value());
+                    response.sendRedirect(request.getContextPath()+"/login");
                     return false;
                 }
             }
