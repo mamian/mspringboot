@@ -4,6 +4,7 @@
 + entity、dao、service、controller
 + thymeleaf模板页面
 + dubbo rpc 系统间通信
++ shiro
 
 ### Build and run
 
