@@ -1,5 +1,9 @@
 /target/
 .DS_Store
 nb-configuration.xml
+.classpath
+.project
+.settings/
+/bin/
 /.idea/
 *.iml
