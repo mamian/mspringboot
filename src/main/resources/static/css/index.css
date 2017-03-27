@@ -1,0 +1,25 @@
+.copyright {
+    clear: both;
+    text-align: center;
+    font-size: 15px;
+    font-family: initial;
+    line-height: 15px;
+}
+
+.copyright, .copyright a {
+    text-decoration:none;
+    color: #999;
+}
+
+.logo{
+    margin-top: 100px;
+    width: 40%;
+    height: 80%;
+    text-align: center;
+}
+
+.content{
+    text-align: center;
+    width: 100%;
+    height: 90%;
+}
