@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>这是一个错误页面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="icon" th:href="@{img/favicon.ico}" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+</head>
+<body>
+    <div th:include="/fragment/header :: head"></div>
+    <p>错误发生时间：<span th:text="${timestamp}"></span></p>
+    <p>http状态：<span th:text="${status}"></span></p>
+    <p>错误原因：<span th:text="${error}"></span></p>
+    <p>异常类：<span th:text="${exception}"></span></p>
+    <p>请求路径：<span th:text="${path}"></span></p>
+    <p th:text="${'错误详情: ' + message}"></p>
+    <p>BindingResult异常里的各种错误：<span th:text="${errors}"></span></p>
+    <p>异常跟踪信息：<span th:text="${trace}"></span></p>
+
+
+
+    <div th:include="/fragment/footer :: foot"></div>
+</body>
+</html>
