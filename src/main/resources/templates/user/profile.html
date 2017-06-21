@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>马面-用户详情页</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="icon" th:href="@{img/favicon.ico}" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <!-- <link rel="shortcut icon"href="favicon.ico" type="image/x-icon">  -->
+</head>
+<body>
+<div th:include="/fragment/header :: head"></div>
+<div class="content">
+    <h1>用户详情展示</h1>
+    <table>
+        <tr>
+            <td>用户id</td>
+            <td>${user.id}</td>
+        </tr>
+        <tr>
+            <td>用户名称</td>
+            <td>${user.name}</td>
+        </tr>
+        <tr>
+            <td>用户mobile</td>
+            <td>${user.mobile}</td>
+        </tr>
+    </table>
+</div>
+<div th:include="/fragment/footer :: foot"></div>
+</body>
+</html>
