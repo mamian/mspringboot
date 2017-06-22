@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>马面</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="icon" th:href="@{img/favicon.ico}" type="image/x-icon"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+        <!-- <link rel="shortcut icon"href="favicon.ico" type="image/x-icon">  -->
+    </head>
+    <body>
+        <div th:include="/fragment/header :: head"></div>
+        <div class="content">
+            <!-- 用户注册 -->
+            <form method="POST" action="register">
+                <div>
+                    用户名：<input type="text" style="width: 200px" placeholder="用户名" name="loginName">
+                </div>
+                <div>
+                    密码：<input type="text" style="width: 200px" placeholder="密码" name="password">
+                </div>
+
+                <hr/><br/>
+                <center>
+                    <button class="btn btn-primary btn-mini"><i class="icon-ok"></i> 注册</button>
+                </center>
+            </form>
+        </div>
+        <div th:include="/fragment/footer :: foot"></div>
+    </body>
+</html>
