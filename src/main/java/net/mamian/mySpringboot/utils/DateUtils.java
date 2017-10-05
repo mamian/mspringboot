@@ -1,6 +1,6 @@
 package net.mamian.mySpringboot.utils;
 
-import com.mysql.jdbc.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -122,7 +122,7 @@ public class DateUtils {
      * @return
      */
     public static Date str2Date(final String dateStr, final String dateFormat) {
-        if (StringUtils.isNullOrEmpty(dateStr)) {
+        if (StringUtils.isBlank(dateStr)) {
             return null;
         }
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
